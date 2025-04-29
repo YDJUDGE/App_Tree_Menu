@@ -1,0 +1,23 @@
+{% extends 'my_menu/base.html' %}
+
+{% load tree_menu_tags %}
+
+{% block menu %}
+    <div class="menu-container">
+        <h3>Main Menu</h3>
+        {% draw_menu 'main_menu' %}
+    </div>
+
+    <div class="menu-container">
+        <h3>Middle Menu</h3>
+        {% draw_menu 'middle_menu' %}
+    </div>
+{% endblock %}
+
+{% block content %}
+    <h1>Welcome to My Site</h1>
+    <p>This is the main page.</p>
+    <h2>About This Site</h2>
+    <p>This site demonstrates a tree menu implementation using Django.</p>
+    <p>Navigate through the menu above to explore different sections.</p>
+{% endblock %}

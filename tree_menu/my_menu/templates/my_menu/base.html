@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}My Site{% endblock %}</title>
+    <style>
+        nav {
+            background-color: #343a40;
+            padding: 15px;
+            padding-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .menu-container {
+            position: relative;
+            display: inline-block;
+            margin-right: 50px;
+            vertical-align: top;
+        }
+        .menu {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #343a40;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            flex-direction: column;
+            min-width: 200px;
+            z-index: 1000;
+        }
+        .menu-container:hover > .menu {
+            display: flex;
+        }
+        .menu li {
+            position: relative;
+            width: 100%;
+        }
+        .menu li a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #fff;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        /* Уточняем селектор для выделения только текущего пункта */
+        .menu > li:hover > a {
+            background-color: #007bff; /* Синий фон только для текущего пункта первого уровня */
+            color: #fff;
+        }
+        .menu ul {
+            display: none !important;
+            position: absolute;
+            top: 0;
+            left: 100%;
+            background-color: #fff;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            min-width: 200px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            z-index: 1000;
+        }
+        .menu ul li {
+            display: block;
+            width: 100%;
+        }
+        .menu ul li a {
+            background-color: transparent; /* Убираем фон по умолчанию */
+            color: #333;
+            padding: 10px 15px;
+            font-size: 14px;
+            display: block;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        /* Только при наведении добавляем синий фон */
+        .menu ul li:hover > a {
+            background-color: #007bff;
+            color: #fff;
+        }
+        /* Убираем влияние .active на подменю */
+        .menu ul li.active > a {
+            background-color: transparent; /* Отключаем синий фон для .active в подменю */
+            color: #333;
+            font-weight: normal;
+        }
+        /* Если нужно, чтобы .active в подменю тоже подсвечивался при наведении */
+        .menu ul li.active:hover > a {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .menu li:hover > ul {
+            display: block !important;
+        }
+        .menu ul {
+            top: 0;
+            left: 100%;
+        }
+        .menu ul ul {
+            top: 0;
+            left: 100%;
+        }
+        .menu ul ul ul {
+            top: 0;
+            left: 100%;
+        }
+        .menu li.active > a {
+            background-color: transparent; /* Убираем синий фон для .active в основном меню */
+            color: #fff;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+        /* Добавляем синий фон для .active при наведении */
+        .menu li.active:hover > a {
+            background-color: #007bff;
+            color: #fff;
+        }
+        /* Буферная зона */
+        .menu li::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 100%;
+            width: 20px;
+            height: 100%;
+            background: transparent;
+        }
+        .content {
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        h3 {
+            color: #fff;
+            text-align: left;
+            margin: 0;
+            padding: 10px 15px;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            background-color: #495057;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        h3:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        {% block menu %}
+        {% endblock %}
+    </nav>
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

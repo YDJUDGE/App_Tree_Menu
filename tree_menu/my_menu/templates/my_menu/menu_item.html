@@ -1,0 +1,10 @@
+<li {% if item.pk in active_ids %}class="active"{% endif %}>
+    <a href="{{ item.get_absolute_url }}">{{ item.title }}</a>
+    {% if item.child_list %}
+        <ul>
+            {% for child in item.child_list %}
+                {% include 'my_menu/menu_item.html' with item=child active_ids=active_ids %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+</li>

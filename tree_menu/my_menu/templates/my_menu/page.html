@@ -1,0 +1,39 @@
+{% extends 'my_menu/base.html' %}
+{% load tree_menu_tags %}
+
+{% block title %}
+    {{ menu_item.title }} - My Site
+{% endblock %}
+
+{% block menu %}
+    <h3>Main Menu</h3>
+    {% draw_menu 'main_menu' %}
+
+    <h3>Middle Menu</h3>
+    {% draw_menu 'middle_menu' %}
+{% endblock %}
+
+{% block content %}
+    <h1>{{ menu_item.title }}</h1>
+    <p>This is the page for "{{ menu_item.title }}".</p>
+    <p>URL: {{ menu_item.get_absolute_url }}</p>
+    <div>
+        <h2>Details</h2>
+        <p>Menu: {{ menu_item.menu.name }}</p>
+        {% if menu_item.parent %}
+            <p>Parent: <a href="{{ menu_item.parent.get_absolute_url }}">{{ menu_item.parent.title }}</a></p>
+        {% else %}
+            <p>This is a top-level item.</p>
+        {% endif %}
+        {% if menu_item.children.all %}
+            <h3>Submenu Items</h3>
+            <ul>
+                {% for child in menu_item.children.all %}
+                    <li><a href="{{ child.get_absolute_url }}">{{ child.title }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No submenu items.</p>
+        {% endif %}
+    </div>
+{% endblock %}
